@@ -17,6 +17,7 @@ namespace ARVIN.MVC.Controllers
         #region Action
         public object action(string action,NameValueCollection param)
         {
+            if (!MethodDic.ContainsKey(action)) return null;
             return MethodDic[action](param);
         }
         #endregion

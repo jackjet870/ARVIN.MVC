@@ -22,8 +22,10 @@ namespace ARVIN.MVC.CustomModule
             var response = HttpContext.Current.Response;
             var request = HttpContext.Current.Request;
             var path = request.Path.ToLower().Split(new char[1] {'/'}, StringSplitOptions.RemoveEmptyEntries);
-            if(!path.Any())return;
+            if(path.Length<2)return;
+            if(!_services.ContainsKey(path[0]))return;
             var result = _services[path[0]](path[1],FilterQueryString(request.QueryString));
+            if(result==null)return;
             response.Write(result.ToString());
             response.Write("hello world");
             response.End();
